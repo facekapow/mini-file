@@ -12,5 +12,8 @@ var router = new MiniRoute(server);
 
 miniFile(router, __dirname + '/public');
 
+miniFile(router, __dirname + '/bower_components', '/support');
+// the above serves the 'bower_components' folder on '/support'
+
 server.listen(8080);
 ```
