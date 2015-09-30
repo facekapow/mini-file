@@ -33,26 +33,27 @@ module.exports = function(router, folder, basePath) {
   var files = readDirectory(folder, basePath);
 
   for (var i = 0; i < files.length; i++) {
-    var file = files[i];
-    router.get(file.virt, function(req, res) {
-      var getFile = file;
+    (function(i) {
+      var file = files[i];
+      router.get(file.virt, function(req, res) {
+        var getFile = file;
 
-      if (file.virt.substr(file.length-1) === '/') {
-        getFile = {
-          virt: file.virt + '/index.html',
-          real: file.real + '/index.html'
-        };
-      }
-
-      fs.readFile(getFile.real, function(err, data) {
-        if (err) {
-          console.log(err);
-          res.statusCode = 500;
-          return res.end('500 internal server error.');
+        if (file.virt.substr(file.length-1) === '/') {
+          getFile = {
+            virt: file.virt + '/index.html',
+            real: file.real + '/index.html'
+          };
         }
 
-        res.end(data);
+        fs.readFile(getFile.real, function(err, data) {
+          if (err) {
+            res.statusCode = 500;
+            return res.end('500 internal server error.');
+          }
+
+          res.end(data);
+        });
       });
-    });
+    })(i);
   }
 }
