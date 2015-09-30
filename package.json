@@ -1,0 +1,26 @@
+{
+  "name": "mini-file",
+  "version": "0.0.1",
+  "description": "mini-route static file handler extension.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArielAbreu/mini-file.git"
+  },
+  "keywords": [
+    "mini-file",
+    "router",
+    "routes",
+    "file",
+    "mini-route"
+  ],
+  "author": "ArielAbreu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ArielAbreu/mini-file/issues"
+  },
+  "homepage": "https://github.com/ArielAbreu/mini-file#readme"
+}
