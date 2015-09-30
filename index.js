@@ -3,7 +3,8 @@
 var fs = require('fs');
 var path = require('path');
 
-module.exports = function(router, folder) {
+module.exports = function(router, folder, basePath) {
+  basePath = basePath || '/';
   // read directory synchronously and recursively
   function readDirectory(dir, serverPath) {
     var cont = fs.readdirSync(dir);
@@ -23,7 +24,7 @@ module.exports = function(router, folder) {
     return files;
   }
 
-  var files = readDirectory(folder, '/');
+  var files = readDirectory(folder, basePath);
 
   for (var i = 0; i < files.length; i++) {
     var file = files[i];
@@ -34,20 +35,13 @@ module.exports = function(router, folder) {
         getFile = file + 'index.html';
       }
 
-      fs.stat(path.join(folder, getFile), function(err, stats) {
+      fs.readFile(path.join(folder, getFile), function(err, data) {
         if (err) {
-          res.statusCode = 404;
-          return res.end('404 not found.');
+          res.statusCode = 500;
+          return res.end('500 internal server error.');
         }
 
-        fs.readFile(path.join(folder, getFile), function(err, data) {
-          if (err) {
-            res.statusCode = 500;
-            return res.end('500 internal server error.');
-          }
-
-          res.end(data);
-        });
+        res.end(data);
       });
     });
   }
