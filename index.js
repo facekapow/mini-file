@@ -6,7 +6,7 @@ var path = require('path');
 module.exports = function(router, folder) {
   // read directory synchronously and recursively
   function readDirectory(dir, serverPath) {
-    var cont = fs.readdirSync(serve);
+    var cont = fs.readdirSync(dir);
     var files = [];
     if (err) throw err;
     for (var i = 0; i < cont.length; i++) {
@@ -16,7 +16,7 @@ module.exports = function(router, folder) {
         if (!stats.isDirectory()) {
           files.push(serverPath + cont[i]);
         } else {
-          var retFiles = readDirectory(cont[i], serverPath + cont[i] + '/');
+          var retFiles = readDirectory(path.join(dir, cont[i]), serverPath + cont[i] + '/');
           files = files.concat(retFiles);
         }
       }
