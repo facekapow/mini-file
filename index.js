@@ -8,9 +8,10 @@ module.exports = function(router, folder) {
   function readDirectory(dir, serverPath) {
     var cont = fs.readdirSync(dir);
     var files = [];
+    files.push(serverPath);
     for (var i = 0; i < cont.length; i++) {
       var stats = fs.statSync(path.join(dir, cont[i]));
-      if (!cont[i].substr(0, 1) === '.') {
+      if (cont[i].substr(0, 1) !== '.') {
         if (!stats.isDirectory()) {
           files.push(serverPath + cont[i]);
         } else {
@@ -25,11 +26,28 @@ module.exports = function(router, folder) {
   var files = readDirectory(folder, '/');
 
   for (var i = 0; i < files.length; i++) {
-    router.get(files[i], function(req, res) {
-      fs.readFile(path.join(folder, files[i]), function(err, data) {
-        if (err) throw err;
+    var file = files[i];
+    router.get(file, function(req, res) {
+      var getFile = file;
 
-        res.end(data);
+      if (file.substr(file.length-1) === '/') {
+        getFile = file + 'index.html';
+      }
+
+      fs.stat(path.join(folder, getFile), function(err, stats) {
+        if (err) {
+          res.statusCode = 404;
+          return res.end('404 not found.');
+        }
+
+        fs.readFile(path.join(folder, getFile), function(err, data) {
+          if (err) {
+            res.statusCode = 500;
+            return res.end('500 internal server error.');
+          }
+
+          res.end(data);
+        });
       });
     });
   }
