@@ -19,7 +19,7 @@ module.exports = function(router, folder, basePath) {
         if (!stats.isDirectory()) {
           files.push({
             virt: serverPath + cont[i],
-            real: dir + cont[i]
+            real: dir + '/' + cont[i]
           });
         } else {
           var retFiles = readDirectory(path.join(dir, cont[i]), serverPath + cont[i] + '/');
@@ -46,6 +46,7 @@ module.exports = function(router, folder, basePath) {
 
       fs.readFile(getFile.real, function(err, data) {
         if (err) {
+          console.log(err);
           res.statusCode = 500;
           return res.end('500 internal server error.');
         }
