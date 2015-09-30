@@ -8,10 +8,8 @@ module.exports = function(router, folder) {
   function readDirectory(dir, serverPath) {
     var cont = fs.readdirSync(dir);
     var files = [];
-    if (err) throw err;
     for (var i = 0; i < cont.length; i++) {
       var stats = fs.statSync(path.join(dir, cont[i]));
-      if (err) throw err;
       if (!cont[i].substr(0, 1) === '.') {
         if (!stats.isDirectory()) {
           files.push(serverPath + cont[i]);
