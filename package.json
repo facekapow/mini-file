@@ -1,6 +1,6 @@
 {
   "name": "mini-file",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "mini-route static file handler extension.",
   "main": "index.js",
   "scripts": {

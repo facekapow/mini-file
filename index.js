@@ -9,7 +9,10 @@ module.exports = function(router, folder, basePath) {
   function readDirectory(dir, serverPath) {
     var cont = fs.readdirSync(dir);
     var files = [];
-    files.push(serverPath);
+    files.push({
+      virt: serverPath
+      real: dir
+    });
     for (var i = 0; i < cont.length; i++) {
       var stats = fs.statSync(path.join(dir, cont[i]));
       if (cont[i].substr(0, 1) !== '.') {
@@ -36,12 +39,12 @@ module.exports = function(router, folder, basePath) {
 
       if (file.virt.substr(file.length-1) === '/') {
         getFile = {
-          virt: file.virt + 'index.html',
-          real: file.real + 'index.html'
+          virt: file.virt + '/index.html',
+          real: file.real + '/index.html'
         };
       }
 
-      fs.readFile(path.join(folder, getFile.real), function(err, data) {
+      fs.readFile(getFile.real, function(err, data) {
         if (err) {
           res.statusCode = 500;
           return res.end('500 internal server error.');
