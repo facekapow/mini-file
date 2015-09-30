@@ -10,7 +10,7 @@ module.exports = function(router, folder, basePath) {
     var cont = fs.readdirSync(dir);
     var files = [];
     files.push({
-      virt: serverPath
+      virt: serverPath,
       real: dir
     });
     for (var i = 0; i < cont.length; i++) {
