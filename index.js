@@ -2,7 +2,6 @@
 
 var fs = require('fs');
 var path = require('path');
-var miniCompress = require('mini-compress');
 
 module.exports = function(router, folder, basePath) {
   basePath = basePath || '/';
@@ -52,14 +51,7 @@ module.exports = function(router, folder, basePath) {
             return res.end('500 internal server error.');
           }
 
-          miniCompress(req, data, function(err, compressed) {
-            if (err) {
-              res.statusCode = 500;
-              return res.end('500 internal server error.');
-            }
-
-            res.end(compressed);
-          });
+          res.end(data);
         });
       });
     })(i);
