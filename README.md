@@ -17,3 +17,13 @@ miniFile(router, __dirname + '/bower_components', '/support/'); // don't forget 
 
 server.listen(8080);
 ```
+
+This can also be used with Express:
+```javascript
+var miniFile = require('mini-file');
+var app = require('express')();
+
+miniFile(app, __dirname + '/public');
+
+app.listen(8080);
+```

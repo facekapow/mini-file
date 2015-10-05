@@ -1,6 +1,6 @@
 {
   "name": "mini-file",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "mini-route static file handler extension.",
   "main": "index.js",
   "scripts": {
@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/ArielAbreu/mini-file/issues"
   },
-  "homepage": "https://github.com/ArielAbreu/mini-file#readme"
+  "homepage": "https://github.com/ArielAbreu/mini-file#readme",
+  "dependencies": {
+    "mini-compress": "0.0.2"
+  }
 }
