@@ -24,6 +24,6 @@
   },
   "homepage": "https://github.com/ArielAbreu/mini-file#readme",
   "dependencies": {
-    "mini-compress": "0.0.2"
+    "mini-compress": "0.0.3"
   }
 }
