@@ -49,6 +49,7 @@ module.exports = function(router, folder, basePath) {
 
         fs.readFile(getFile.real, function(err, data) {
           if (err) {
+            console.log(getFile.real);
             res.statusCode = 500;
             return res.end('500 internal server error.');
           }
@@ -59,11 +60,15 @@ module.exports = function(router, folder, basePath) {
               return res.end('500 internal server error.');
             }
 
-            res.setHeader('Content-Type', mime.lookup(getFile.real));
-            
+            var headers = {
+              'content-type': mime.lookup(getFile.real)
+            };
+
             if (encoding) {
-              res.setHeader('Content-Encoding', encoding);
+              headers['content-encoding'] = encoding;
             }
+
+            res.writeHead(200, headers);
 
             res.end(compressed);
           });
